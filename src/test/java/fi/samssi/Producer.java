@@ -34,7 +34,7 @@ public class Producer implements Runnable {
     }
 
     private String generateString() {
-        return String.valueOf((int) Math.round(Math.random()) * 10000);
+        return String.valueOf((int) Math.round(Math.random() * 10000));
     }
 
 }
