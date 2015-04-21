@@ -1,0 +1,13 @@
+*.prefs
+*.iml
+.idea/*
+.idea
+*.ipr
+*.iws
+*.DS_Store
+classes
+target
+.classpath
+.eclipse_classes
+.project
+
