@@ -2,29 +2,20 @@ package fi.samssi;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class Queue {
-    private static List<String> messages = new ArrayList<String>();
+    private static List<String> messages = new ArrayList<>();
     private boolean locked = false;
 
     public synchronized void addMessageToQueue(String message) {
-        doLockedOperationForBoolean(() -> messages.add(message));
+        doLockedOperation(() -> messages.add(message));
     }
 
-    private synchronized void doLockedOperationForBoolean(Supplier<Boolean> function) {
+    private synchronized <T> T doLockedOperation(Supplier<T> function) {
         waitForIt();
         locked = true;
-        function.get();
-        locked = false;
-        notifyAll();
-    }
-
-    private synchronized String doLockedOperationForString(Supplier<String> function) {
-        waitForIt();
-        locked = true;
-        String result = function.get();
+        T result = function.get();
         locked = false;
         notifyAll();
         return result;
@@ -52,6 +43,6 @@ public class Queue {
     }
 
     public synchronized String popMessageFromQueue() {
-        return doLockedOperationForString(messagePopper());
+        return doLockedOperation(messagePopper());
     }
 }
