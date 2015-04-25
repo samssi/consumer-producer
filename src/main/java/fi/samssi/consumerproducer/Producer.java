@@ -1,4 +1,4 @@
-package fi.samssi;
+package fi.samssi.consumerproducer;
 
 public class Producer implements Runnable {
     private final Queue queue;

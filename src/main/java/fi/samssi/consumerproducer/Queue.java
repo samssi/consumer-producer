@@ -1,4 +1,4 @@
-package fi.samssi;
+package fi.samssi.consumerproducer;
 
 import java.util.ArrayList;
 import java.util.List;

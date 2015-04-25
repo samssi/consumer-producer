@@ -1,4 +1,4 @@
-package fi.samssi;
+package fi.samssi.consumerproducer;
 
 public class ApplicationStarter {
 
