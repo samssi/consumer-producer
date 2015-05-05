@@ -3,6 +3,7 @@ package fi.samssi.consumerproducer;
 public class Producer implements Runnable {
     private final Queue queue;
     private final String threadId;
+    private int counter = 0;
 
     public Producer(Queue queue, int threadId) {
         this.queue = queue;
@@ -34,7 +35,7 @@ public class Producer implements Runnable {
     }
 
     private String generateString() {
-        return String.valueOf((int) Math.round(Math.random() * 10000));
+        return String.valueOf(counter++);
     }
 
 }

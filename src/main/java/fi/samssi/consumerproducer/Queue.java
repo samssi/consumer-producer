@@ -6,23 +6,24 @@ import java.util.function.Supplier;
 
 public class Queue {
     private static List<String> messages = new ArrayList<>();
-    private boolean locked = false;
 
     public synchronized void addMessageToQueue(String message) {
-        doLockedOperation(() -> messages.add(message));
+        messages.add(message);
+        notifyAll();
     }
 
     private synchronized <T> T doLockedOperation(Supplier<T> function) {
         waitForIt();
-        locked = true;
         T result = function.get();
-        locked = false;
-        notifyAll();
         return result;
     }
 
+    private boolean empty() {
+        return messages.size() == 0;
+    }
+
     public synchronized void waitForIt() {
-        while(locked) {
+        while(empty()) {
             try {
                 wait();
             } catch (InterruptedException e) {

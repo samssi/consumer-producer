@@ -4,10 +4,12 @@ public class Consumer implements Runnable {
 
     private final String threadId;
     private final Queue queue;
+    private final FileWriter fileWriter;
 
     public Consumer(Queue queue, int threadId) {
         this.queue = queue;
         this.threadId = String.valueOf(threadId);
+        this.fileWriter = new FileWriter(threadId);
     }
 
     @Override
@@ -23,7 +25,7 @@ public class Consumer implements Runnable {
         String message = queue.popMessageFromQueue();
         if (!"".equals(message)) {
             System.out.println("Thread # " + threadId + ": Consumed message from queue. Message was: " + message);
+            fileWriter.append(message);
         }
     }
-
 }
